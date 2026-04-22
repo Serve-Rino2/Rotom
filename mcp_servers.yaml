@@ -14,21 +14,26 @@
 servers:
   - name: jellyfin
     url: ${JELLYFIN_MCP_URL}
-    token: ${JELLYFIN_MCP_TOKEN}
+    token: ${MCP_HTTP_TOKEN}
+    enabled: true
+
+  - name: memory
+    url: ${MEMORY_MCP_URL}
+    token: ${MCP_HTTP_TOKEN}
     enabled: true
 
   # Placeholders for the next MCPs — flip `enabled: true` when they ship.
   # - name: navidrome
   #   url: http://navidrome-mcp:8000/mcp
-  #   token: ${NAVIDROME_MCP_TOKEN}
+  #   token: ${MCP_HTTP_TOKEN}
   #   enabled: false
   #
   # - name: nextcloud
   #   url: http://nextcloud-mcp:8000/mcp
-  #   token: ${NEXTCLOUD_MCP_TOKEN}
+  #   token: ${MCP_HTTP_TOKEN}
   #   enabled: false
   #
   # - name: home_assistant
   #   url: http://ha-mcp:8000/mcp
-  #   token: ${HA_MCP_TOKEN}
+  #   token: ${MCP_HTTP_TOKEN}
   #   enabled: false

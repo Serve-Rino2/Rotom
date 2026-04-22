@@ -38,9 +38,14 @@ services:
       # MCP registry path inside the image
       MCP_CONFIG_PATH: /app/mcp_servers.yaml
 
-      # MCP server credentials referenced by mcp_servers.yaml
+      # Shared bearer token across all homelab MCPs. Set the same value
+      # on every MCP app (jellyfin-mcp, memory-mcp, ...) and here.
+      MCP_HTTP_TOKEN: ${MCP_HTTP_TOKEN:-}
+
+      # Per-MCP URLs referenced by mcp_servers.yaml. Internal DNS on
+      # dokploy-network points to the network alias of each MCP.
       JELLYFIN_MCP_URL: ${JELLYFIN_MCP_URL:-http://jellyfin-mcp:8000/mcp}
-      JELLYFIN_MCP_TOKEN: ${JELLYFIN_MCP_TOKEN:-}
+      MEMORY_MCP_URL:   ${MEMORY_MCP_URL:-http://memory-mcp:8000/mcp}
 
 networks:
   dokploy-network:
