@@ -25,7 +25,8 @@ COPY mcp_servers.yaml ./
 
 ENV BIND_HOST=0.0.0.0 \
     BIND_PORT=9000 \
-    MCP_CONFIG_PATH=/app/mcp_servers.yaml
+    MCP_CONFIG_PATH=/app/mcp_servers.yaml \
+    HISTORY_DB_PATH=/app/data/conversations.db
 
 EXPOSE 9000
 

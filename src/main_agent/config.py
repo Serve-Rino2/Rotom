@@ -34,6 +34,16 @@ class Settings(BaseSettings):
         description="Path to the YAML registry describing the MCP servers to connect to",
     )
 
+    history_db_path: Path = Field(
+        Path("/app/data/conversations.db"),
+        description="SQLite file where /chat conversation history is persisted",
+    )
+
+    history_replay_limit: int = Field(
+        100,
+        description="Max messages replayed into the agent as message_history per turn",
+    )
+
     system_prompt: str = Field(
         default=(
             "Sei l'assistente del homelab dell'utente. Hai accesso a vari tool via MCP "

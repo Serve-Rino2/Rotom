@@ -24,6 +24,10 @@ services:
       dokploy-network:
         aliases:
           - main-agent
+    volumes:
+      # Named volume for conversation history SQLite DB. Survives
+      # redeploys so /chat threads stay alive across container restarts.
+      - rotom-data:/app/data
     environment:
       # GLM / Zhipu
       GLM_API_KEY: ${GLM_API_KEY:?GLM_API_KEY is required}
@@ -38,6 +42,9 @@ services:
       # MCP registry path inside the image
       MCP_CONFIG_PATH: /app/mcp_servers.yaml
 
+      # Conversation history DB (persisted on rotom-data volume)
+      HISTORY_DB_PATH: /app/data/conversations.db
+
       # Shared bearer token across all homelab MCPs. Set the same value
       # on every MCP app (jellyfin-mcp, memory-mcp, ...) and here.
       MCP_HTTP_TOKEN: ${MCP_HTTP_TOKEN:-}
@@ -46,6 +53,10 @@ services:
       # dokploy-network points to the network alias of each MCP.
       JELLYFIN_MCP_URL: ${JELLYFIN_MCP_URL:-http://jellyfin-mcp:8000/mcp}
       MEMORY_MCP_URL:   ${MEMORY_MCP_URL:-http://memory-mcp:8000/mcp}
+
+volumes:
+  rotom-data:
+    name: rotom-data
 
 networks:
   dokploy-network:
