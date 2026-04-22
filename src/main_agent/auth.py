@@ -10,12 +10,14 @@ from .config import Settings
 def make_auth_dependency(settings: Settings):
     """Return a FastAPI dependency that enforces the bearer token when configured.
 
-    When `settings.api_key` is None, the dependency is a no-op — the API is
-    left open (acceptable on a trusted LAN).
+    Auth is disabled when `settings.api_key` is falsy — covers both the
+    unset case (None) and the "variable present but empty" case (""),
+    which is what Dockploy / docker-compose produce when the operator
+    deletes the value but leaves the key in the env list.
     """
 
-    expected = settings.api_key
-    if expected is None:
+    expected = (settings.api_key or "").strip()
+    if not expected:
         async def _noop() -> None:
             return None
         return _noop
