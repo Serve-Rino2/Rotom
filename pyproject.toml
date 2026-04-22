@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "main_agent"
+version = "0.1.0"
+description = "Homelab orchestration agent — routes natural-language requests to MCP-wrapped services via Pydantic AI + GLM"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+    "pydantic-ai-slim[openai,mcp]>=0.0.50",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "pyyaml>=6.0",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+main-agent = "main_agent.main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/main_agent"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/main_agent", "mcp_servers.yaml"]

@@ -1,0 +1,48 @@
+# main_agent — orchestrator that routes natural-language requests
+# across MCP-wrapped homelab services.
+#
+# Attaches to Dockploy's built-in `dokploy-network` so it can resolve
+# sibling MCP containers (e.g. `jellyfin-mcp`) via internal Docker DNS
+# and be reached, in turn, by any Dockploy app (web UI, reverse proxy,
+# Open WebUI, etc.) on the same network.
+#
+# Put your secrets in a .env file next to this compose file.
+
+services:
+  main-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: main-agent:latest
+    restart: unless-stopped
+    ports:
+      # Host port for external clients (curl, mobile app, Open WebUI
+      # running off-Dockploy, ...). The service listens on 9000 inside
+      # the container.
+      - "${AGENT_PUBLISH_PORT:-9100}:9000"
+    networks:
+      dokploy-network:
+        aliases:
+          - main-agent
+    environment:
+      # GLM / Zhipu
+      GLM_API_KEY: ${GLM_API_KEY:?GLM_API_KEY is required}
+      GLM_MODEL: ${GLM_MODEL:-glm-4.6}
+      GLM_BASE_URL: ${GLM_BASE_URL:-https://open.bigmodel.cn/api/paas/v4/}
+
+      # Own HTTP surface
+      BIND_HOST: 0.0.0.0
+      BIND_PORT: "9000"
+      API_KEY: ${API_KEY:-}
+
+      # MCP registry path inside the image
+      MCP_CONFIG_PATH: /app/mcp_servers.yaml
+
+      # MCP server credentials referenced by mcp_servers.yaml
+      JELLYFIN_MCP_URL: ${JELLYFIN_MCP_URL:-http://jellyfin-mcp:8000/mcp}
+      JELLYFIN_MCP_TOKEN: ${JELLYFIN_MCP_TOKEN:-}
+
+networks:
+  dokploy-network:
+    external: true
+    name: dokploy-network

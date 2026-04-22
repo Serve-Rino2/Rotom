@@ -1,0 +1,34 @@
+# Registry of MCP servers the agent connects to at startup.
+#
+# Each entry becomes a toolset on the Pydantic AI Agent, so GLM sees all
+# tools from all enabled servers in a single pool and routes calls
+# automatically based on the tool descriptions.
+#
+# Fields:
+#   name:    short identifier used in logs (not shown to the model)
+#   url:     MCP Streamable HTTP endpoint. Supports ${VAR} env substitution.
+#   token:   optional Bearer token. Supports ${VAR} env substitution;
+#            leave null/empty to skip the Authorization header.
+#   enabled: flip off without deleting the entry.
+
+servers:
+  - name: jellyfin
+    url: ${JELLYFIN_MCP_URL}
+    token: ${JELLYFIN_MCP_TOKEN}
+    enabled: true
+
+  # Placeholders for the next MCPs — flip `enabled: true` when they ship.
+  # - name: navidrome
+  #   url: http://navidrome-mcp:8000/mcp
+  #   token: ${NAVIDROME_MCP_TOKEN}
+  #   enabled: false
+  #
+  # - name: nextcloud
+  #   url: http://nextcloud-mcp:8000/mcp
+  #   token: ${NEXTCLOUD_MCP_TOKEN}
+  #   enabled: false
+  #
+  # - name: home_assistant
+  #   url: http://ha-mcp:8000/mcp
+  #   token: ${HA_MCP_TOKEN}
+  #   enabled: false
