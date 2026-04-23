@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStreamableHTTP
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 
 from .config import Settings
+from .mcp_registry import McpToolset
 
 
 def build_agent(
-    settings: Settings, toolsets: list[MCPServerStreamableHTTP]
+    settings: Settings, toolsets: list[McpToolset]
 ) -> Agent:
     provider = OpenAIProvider(
         base_url=settings.glm_base_url,

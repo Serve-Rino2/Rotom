@@ -22,6 +22,15 @@ servers:
     token: ${MCP_HTTP_TOKEN}
     enabled: true
 
+  # Home Assistant exposes its built-in Model Context Protocol Server
+  # integration over SSE (not Streamable HTTP), reached directly on the
+  # LAN — HAOS lives outside dokploy-network.
+  - name: home_assistant
+    transport: sse
+    url: ${HOME_ASSISTANT_MCP_URL}
+    token: ${HOME_ASSISTANT_TOKEN}
+    enabled: true
+
   # Placeholders for the next MCPs — flip `enabled: true` when they ship.
   # - name: navidrome
   #   url: http://navidrome-mcp:8000/mcp
@@ -30,10 +39,5 @@ servers:
   #
   # - name: nextcloud
   #   url: http://nextcloud-mcp:8000/mcp
-  #   token: ${MCP_HTTP_TOKEN}
-  #   enabled: false
-  #
-  # - name: home_assistant
-  #   url: http://ha-mcp:8000/mcp
   #   token: ${MCP_HTTP_TOKEN}
   #   enabled: false
