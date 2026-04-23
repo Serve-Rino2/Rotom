@@ -50,9 +50,12 @@ services:
       MCP_HTTP_TOKEN: ${MCP_HTTP_TOKEN:-}
 
       # Per-MCP URLs referenced by mcp_servers.yaml. Internal DNS on
-      # dokploy-network points to the network alias of each MCP.
+      # dokploy-network points to the network alias of each MCP; HAOS
+      # runs outside dokploy-network so it's reached on the LAN IP.
       JELLYFIN_MCP_URL: ${JELLYFIN_MCP_URL:-http://jellyfin-mcp:8000/mcp}
       MEMORY_MCP_URL:   ${MEMORY_MCP_URL:-http://memory-mcp:8000/mcp}
+      HOME_ASSISTANT_MCP_URL: ${HOME_ASSISTANT_MCP_URL:-}
+      HOME_ASSISTANT_TOKEN:   ${HOME_ASSISTANT_TOKEN:-}
 
 volumes:
   rotom-data:
