@@ -57,6 +57,7 @@ services:
       HOME_ASSISTANT_MCP_URL: ${HOME_ASSISTANT_MCP_URL:-}
       HOME_ASSISTANT_TOKEN:   ${HOME_ASSISTANT_TOKEN:-}
       CHATOT_MCP_URL:   ${CHATOT_MCP_URL:-http://music-mcp:8000/mcp}
+      NAVIDROME_MCP_URL: ${NAVIDROME_MCP_URL:-http://navidrome-mcp:8000/mcp}
 
 volumes:
   rotom-data:

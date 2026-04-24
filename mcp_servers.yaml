@@ -36,12 +36,12 @@ servers:
     token: ${MCP_HTTP_TOKEN}
     enabled: true
 
-  # Placeholders for the next MCPs — flip `enabled: true` when they ship.
-  # - name: navidrome
-  #   url: http://navidrome-mcp:8000/mcp
-  #   token: ${MCP_HTTP_TOKEN}
-  #   enabled: false
-  #
+  - name: navidrome
+    url: ${NAVIDROME_MCP_URL}
+    token: ${MCP_HTTP_TOKEN}
+    enabled: true
+
+  # Placeholder for the next MCP — flip `enabled: true` when it ships.
   # - name: nextcloud
   #   url: http://nextcloud-mcp:8000/mcp
   #   token: ${MCP_HTTP_TOKEN}
